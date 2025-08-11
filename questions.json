@@ -1,0 +1,128 @@
+[
+  {
+    "question": "What is the study of living organisms called?",
+    "options": [
+      "Biology",
+      "Chemistry",
+      "Physics"
+    ],
+    "correctAnswer": "Biology"
+  },
+  {
+    "question": "What are the basic unit of life?",
+    "options": [
+      "Tissues",
+      "Organs",
+      "Cells"
+    ],
+    "correctAnswer": "Cells"
+  },
+  {
+    "question": "Which of these structures is found inside a cell?",
+    "options": [
+      "Nucleus",
+      "Mountain",
+      "Car"
+    ],
+    "correctAnswer": "Nucleus"
+  },
+  {
+    "question": "What does genetics study?",
+    "options": [
+      "Heredity and variation",
+      "Cell structure",
+      "Photosynthesis"
+    ],
+    "correctAnswer": "Heredity and variation"
+  },
+  {
+    "question": "What carries genetic information?",
+    "options": [
+      "DNA",
+      "RNA",
+      "Protein"
+    ],
+    "correctAnswer": "DNA"
+  },
+  {
+    "question": "What is the process by which plants use sunlight to make food called?",
+    "options": [
+      "Photosynthesis",
+      "Respiration",
+      "Fermentation"
+    ],
+    "correctAnswer": "Photosynthesis"
+  },
+  {
+    "question": "What is the main pigment involved in photosynthesis?",
+    "options": [
+      "Chlorophyll",
+      "Hemoglobin",
+      "Melanin"
+    ],
+    "correctAnswer": "Chlorophyll"
+  },
+  {
+    "question": "Where does the Calvin Cycle occur?",
+    "options": [
+      "Stroma of chloroplasts",
+      "Nucleus",
+      "Mitochondria"
+    ],
+    "correctAnswer": "Stroma of chloroplasts"
+  },
+  {
+    "question": "What is the study of heredity and variation in organisms called?",
+    "options": [
+      "Genetics",
+      "Biology",
+      "Ecology"
+    ],
+    "correctAnswer": "Genetics"
+  },
+  {
+    "question": "Which of these is NOT a part of a cell?",
+    "options": [
+      "Nucleus",
+      "Mitochondria",
+      "Car"
+    ],
+    "correctAnswer": "Car"
+  },
+  {
+    "question": "What is the role of chlorophyll in plants?",
+    "options": [
+      "Absorb sunlight",
+      "Store genetic information",
+      "Transport nutrients"
+    ],
+    "correctAnswer": "Absorb sunlight"
+  },
+  {
+    "question": "Which chapter discusses the Calvin Cycle?",
+    "options": [
+      "Chapter 4",
+      "Chapter 5",
+      "Chapter 3"
+    ],
+    "correctAnswer": "Chapter 5"
+  },
+  {
+    "question": "What are mitochondria a part of?",
+    "options": [
+      "Cell structure",
+      "Genetics",
+      "Photosynthesis"
+    ],
+    "correctAnswer": "Cell structure"
+  },
+  {
+    "question": "What is the main focus of Chapter 1: Introduction to Biology?",
+    "options": [
+      "Cell structure",
+      "Genetics",
+      "Overview of biology"
+    ],
+    "correctAnswer": "Overview of biology"
+  }
+]
