@@ -32,7 +32,7 @@ Create a .env file in the project root:
 # .env
 SARVAM_API_KEY=your_sarvam_api_key_here
 
-### ▶️ Running the Server
+# ▶️ Running the Server
 node server.js
 
 Server will run at:
@@ -40,7 +40,7 @@ Server will run at:
 http://localhost:4000
 
 📌 API Endpoints
-# 1️⃣ Upload PDF     
+## 1️⃣ Upload PDF     
 POST /upload-pdf
 Uploads a PDF and extracts its text.
 
