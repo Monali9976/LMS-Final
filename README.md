@@ -42,36 +42,46 @@ http://localhost:4000
 📌 API Endpoints
 ## 1️⃣ Upload PDF     
 POST /upload-pdf
+
 Uploads a PDF and extracts its text.
 
 Request:
 
 http://localhost:4000/upload-pdf
+
 Response:
 
 {
   "message": "PDF text saved successfully"
 }
 
-2️⃣ Generate Questions
+## 2️⃣ Generate Questions
 POST /generate-questions
+
 Generates MCQs from the uploaded PDF text using Sarvam AI.
 
 Request:
+
 http://localhost:4000/generate-questions
+
 {
   "ok": true,
   "total": 15,
   "file": "questions.json"
 }
 
-3️⃣ Get Random Quiz
+## 3️⃣ Get Random Quiz
+
 GET /quiz
+
 Returns 10 random questions.
 
 Request:
+
 http://localhost:4000/quiz
+
 Response:
+
 [
   {
     "question": "What is ...?",
@@ -80,11 +90,14 @@ Response:
   }
 ]
 
-4️⃣ Submit Quiz
+## 4️⃣ Submit Quiz
+
 POST /quiz
+
 Send your answers and get your score.
 
 Request:
+
 http://localhost:4000/quiz \
 -H "Content-Type: application/json" \
 -d '{
@@ -93,7 +106,9 @@ http://localhost:4000/quiz \
     {"question": "Which ...?", "selected": "B"}
   ]
 }'
+
 Response:
+
 {
   "score": 2,
   "total": 2
