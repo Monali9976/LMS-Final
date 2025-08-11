@@ -129,8 +129,11 @@ Make sure you upload a PDF first before generating questions.
 Sarvam AI model used: sarvam-m
 
 If AI returns invalid JSON, the app cleans and parses it automatically.
+![App Screenshot](assets/Screenshot%202025-08-11%20170304.png)
 
-![App Screenshot](assets/Screenshot 2025-08-11 170304.png)
-![App Screenshot](assets/Screenshot 2025-08-11 170342.png)
-![App Screenshot](assets/Screenshot 2025-08-11 170420.png)
-![App Screenshot](assets/Screenshot 2025-08-11 170450.png)
+![App Screenshot](assets/Screenshot%202025-08-11%20170342.png)
+
+![App Screenshot](assets/Screenshot%202025-08-11%20170420.png)
+
+![App Screenshot](assets/Screenshot%202025-08-11%20170450.png)
+
