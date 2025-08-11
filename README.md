@@ -40,7 +40,7 @@ Server will run at:
 http://localhost:4000
 
 📌 API Endpoints
-1️⃣ Upload PDF
+# 1️⃣ Upload PDF     
 POST /upload-pdf
 Uploads a PDF and extracts its text.
 
