@@ -34,7 +34,9 @@ SARVAM_API_KEY=your_sarvam_api_key_here
 
 # ▶️ Running the Server
 node server.js
+
 Server will run at:
+
 http://localhost:4000
 
 📌 API Endpoints
