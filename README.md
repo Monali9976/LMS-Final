@@ -45,9 +45,10 @@ POST /upload-pdf
 Uploads a PDF and extracts its text.
 
 Request:
-http://localhost:4000/upload-pdf
 
+http://localhost:4000/upload-pdf
 Response:
+
 {
   "message": "PDF text saved successfully"
 }
