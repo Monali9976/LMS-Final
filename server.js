@@ -91,6 +91,7 @@ res.json({ ok: true, total: questions.length, file: 'questions.json' });
 });
 
 
+
 // ===== API 2: Get 10 Random Questions =====
 app.get("/quiz", (req, res) => {
   try {
@@ -102,7 +103,10 @@ app.get("/quiz", (req, res) => {
   }
 });
 
+
 // ===== API 3: Submit Quiz =====
+
+
 app.post('/quiz', (req, res) => {
   const userAnswers = req.body.answers;
   const questions = JSON.parse(fs.readFileSync('questions.json', 'utf8'));
