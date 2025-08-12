@@ -34,79 +34,62 @@ app.post("/upload-pdf", upload.single("file"), async (req, res) => {
     }
 });
 
-app.post("/generate-questions", async (req, res) => {
-    try {
-        if (!fs.existsSync("pdfText.txt")) {
-            return res.status(400).json({ error: "Upload a PDF first" });
-        }
+app.post('/generate-questions', async (req, res) => {
+  try {
+    const pdfText = fs.readFileSync('pdfText.txt', 'utf8');
 
-        const pdfText = fs.readFileSync("pdfText.txt", "utf8").trim();
-        if (!pdfText) {
-            return res.status(400).json({ error: "PDF text is empty" });
-        }
+    const prompt = `
+    Generate 25 multiple-choice questions from the following text.
+    For each question, include:
+    - question
+    - options (array of 3–5)
+    - correctAnswer
+    - sourceChapter (the chapter or section name from which the question is derived)
 
-        const truncatedText = pdfText.slice(0, 5000);
-        console.log("Sending text length to Sarvam:", truncatedText.length);
+    Make sure the output is valid JSON array.
+    Text: ${pdfText}
+    `;
 
-//         const prompt = `
-// Create exactly 20 multiple-choice questions from the given text.
-// Each question must have exactly 3 options, and only ONE correctAnswer.
-// Output strictly in JSON format like:
-// [
-//   {
-//     "question": "string",
-//     "options": ["string", "string", "string"],
-//     "correctAnswer": "string"
-//   }
-// ]
-// Text: ${truncatedText}
-//         `;
-const prompt = `
-Create exactly 15 multiple-choice questions from the given text.
-- Each question must have exactly 3 options, and only ONE correctAnswer.
-- Output ONLY a valid JSON array, no code blocks, no extra text.
-- Do NOT include explanations, keys must match exactly: "question", "options", "correctAnswer".
-Text: ${truncatedText}
-`;
-
-        const response = await axios.post(
-            "https://api.sarvam.ai/v1/chat/completions",
-            {
-                model: "sarvam-m",
-                messages: [
-                    { role: "system", content: "You are a quiz generator that outputs only JSON." },
-                    { role: "user", content: prompt }
-                ],
-                temperature: 0.2,
-                max_tokens: 4000
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${process.env.SARVAM_API_KEY}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-        let outputText = response.data.choices[0].message.content.trim();
-        // Remove possible ```json or ``` markers
-outputText = outputText.replace(/```json/gi, "").replace(/```/g, "").trim();
-        let questions;
-
-        try {
-            questions = JSON.parse(outputText);
-        } catch (err) {
-            return res.status(500).json({ error: "Sarvam AI did not return valid JSON" });
-        }
-
-        fs.writeFileSync("questions.json", JSON.stringify(questions, null, 2));
-        res.json({ ok: true, total: questions.length, file: "questions.json" });
-
-    } catch (err) {
-        console.error("Sarvam API error:", err.response?.data || err.message);
-        res.status(500).json({ error: err.response?.data || err.message });
+const response = await axios.post(
+  "https://api.sarvam.ai/v1/chat/completions",
+  {
+    model: "sarvam-m",
+    messages: [
+      { role: "system", content: "You are a quiz generator that outputs only JSON." },
+      { role: "user", content: prompt }
+    ],
+    temperature: 0.2,
+    max_tokens: 4000
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${process.env.SARVAM_API_KEY}`,
+      "Content-Type": "application/json"
     }
+  }
+);
+
+// ✅ Axios me data yahan hota hai:
+let data = response.data.choices[0].message.content;
+
+// 🧹 Clean invalid JSON if needed
+data = data.trim();
+if (data.startsWith("```")) {
+  data = data.replace(/```json|```/g, '').trim();
+}
+
+const questions = JSON.parse(data);
+
+fs.writeFileSync('questions.json', JSON.stringify(questions, null, 2));
+
+res.json({ ok: true, total: questions.length, file: 'questions.json' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to generate questions' });
+  }
 });
+
 
 // ===== API 2: Get 10 Random Questions =====
 app.get("/quiz", (req, res) => {
@@ -120,21 +103,34 @@ app.get("/quiz", (req, res) => {
 });
 
 // ===== API 3: Submit Quiz =====
-app.post("/quiz", (req, res) => {
-  try {
-    const answers = req.body.answers; // [{question, selected}]
-    const questions = JSON.parse(fs.readFileSync("questions.json", "utf-8"));
+app.post('/quiz', (req, res) => {
+  const userAnswers = req.body.answers;
+  const questions = JSON.parse(fs.readFileSync('questions.json', 'utf8'));
 
-    let score = 0;
-    answers.forEach((ans) => {
-      const q = questions.find((q) => q.question === ans.question);
-      if (q && q.correctAnswer === ans.selected) score++;
-    });
+  let score = 0;
+  let wrongAnswers = [];
 
-    res.json({ score, total: answers.length });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  userAnswers.forEach(ans => {
+    const q = questions.find(q => q.question === ans.question);
+    if (q) {
+      if (q.correctAnswer.trim().toLowerCase() === ans.selected.trim().toLowerCase()) {
+        score++;
+      } else {
+        wrongAnswers.push({
+          question: q.question,
+          selected: ans.selected,
+          correctAnswer: q.correctAnswer,
+          sourceChapter: q.sourceChapter || "Chapter info not available"
+        });
+      }
+    }
+  });
+
+  res.json({
+    score,
+    total: userAnswers.length,
+    wrongAnswers
+  });
 });
 
 app.listen(4000, () => console.log("✅ Server running on http://localhost:4000"));
